@@ -1,12 +1,16 @@
 import "./manageItem.css";
 import rovId from "../data/rovId.json";
+import { EditIdModal } from "../component/gameIdModal";
 export function ManageItem() {
   return (
     <>
-      <div className="px-5 py-5">
-        <button type="button" className="btn btn-success btn-lg my-3">
-          ADD
-        </button>
+      <div className="mt-3 text-center display-1 fw-bold">MANAGE STOCK</div>
+      <div className="px-5 py-3">
+        <EditIdModal
+          classButton={"btn btn-success btn-lg my-3"}
+          text={"ADD"}
+          type={"ADD"}
+        />
         <table className="table table-striped">
           <thead className="text-center table-dark sticky-top">
             <tr>
@@ -32,17 +36,22 @@ export function ManageItem() {
                   <td className="text-center align-middle fs-2 ">
                     {item.price}
                   </td>
-                  <td className="text-center align-middle fs-2">
-                    {item.status.toString().toUpperCase()}
+                  <td
+                    className={
+                      item.status
+                        ? "text-center align-middle fs-2"
+                        : "text-center align-middle fs-2 text-danger"
+                    }
+                  >
+                    {item.status ? "ยังไม่ขาย" : "ขายแล้ว"}
                   </td>
                   <td className="align-middle text-center">
                     <div>
-                      <button
-                        type="button"
-                        className="btn btn-warning mx-1 fs-4"
-                      >
-                        EDIT
-                      </button>
+                      <EditIdModal
+                        classButton={"btn btn-warning mx-1 fs-4"}
+                        text={"EDIT"}
+                        type={"EDIT"}
+                      />
                       <button
                         type="button"
                         className="btn btn-danger mx-1 fs-4"
@@ -56,9 +65,11 @@ export function ManageItem() {
             })}
           </tbody>
         </table>
-        <button type="button" className="btn btn-success btn-lg my-3">
-          ADD
-        </button>
+        <EditIdModal
+          classButton={"btn btn-success btn-lg my-3"}
+          text={"ADD"}
+          type={"ADD"}
+        />
       </div>
     </>
   );

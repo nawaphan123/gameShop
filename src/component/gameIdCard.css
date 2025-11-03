@@ -1,0 +1,15 @@
+.card-game:hover {
+  transform: translateY(-5px);
+  transition-duration: 0.5s;
+}
+.card-title {
+  font-size: 1.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  /* text-overflow: hidden; */
+}
+.card-game {
+  border-color: #ff4f5e95;
+}

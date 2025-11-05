@@ -35,41 +35,27 @@ app.delete("/deleteItem", async (req, res) => {
   await con.end();
 });
 
-// อ่านไฟล์ rovId.json
 app.get("/id", async (req, res) => {
-  const [result] = await connection.query(
-    `SELECT * FROM gameData where id = ?`,
-    [req.query.id]
-  );
-  await connection.end();
+  const con = await connectDB();
+  const [result] = await con.query(`SELECT * FROM gameData where id = ?`, [
+    req.query.id,
+  ]);
+  await con.end();
   res.json(result);
 });
 
 // ดึงข้อมูลจาก DB
 app.get("/getDB", async (req, res) => {
-  const connection = await mysql.createConnection({
-    host: "100.105.255.77",
-    user: "nodeuser",
-    password: "admin1122",
-    database: "gameshop",
-    charset: "utf8mb4",
-  });
-
-  const [result] = await connection.query("SELECT * FROM gameData");
-  await connection.end();
+  const con = await connectDB();
+  const [result] = await con.query("SELECT * FROM gameData");
+  await con.end();
   res.json(result);
 });
 
 // insert ข้อมูลจาก rovId.json เข้าฐานข้อมูล
-app.get("/insert", async (req, res) => {
-  const connection = await mysql.createConnection({
-    host: "100.105.255.77",
-    user: "nodeuser",
-    password: "admin1122",
-    database: "gameshop",
-    charset: "utf8mb4",
-  });
-  await connection.query("SET NAMES utf8mb4");
+app.get("/insertID", async (req, res) => {
+  const con = await connectDB();
+  await con.query("SET NAMES utf8mb4");
 
   fs.readFile("./data/rovId.json", "utf-8", async (err, data) => {
     if (err) {
@@ -79,14 +65,14 @@ app.get("/insert", async (req, res) => {
 
     const jsonData = JSON.parse(data);
     for (const [idx, item] of jsonData.entries()) {
-      await connection.query(
+      await con.query(
         `INSERT INTO gameData (image, info, price, status) VALUES (?, ?, ?, ?)`,
         [item.image, item.info, item.price, item.status]
       );
       console.log("insert:", idx);
     }
 
-    await connection.end();
+    await con.end();
     res.send("Data inserted successfully");
   });
 });
@@ -121,17 +107,9 @@ app.post("/checkCode", async (req, res) => {
   if (!moneyPin) return res.send("Missing moneyPin");
   if (moneyPin === "1234") {
     console.log("success");
-    const connection = await mysql.createConnection({
-      host: "100.105.255.77",
-      user: "nodeuser",
-      password: "admin1122",
-      database: "gameshop",
-    });
-    await connection.query(
-      "update gameData set status=false where id=?",
-      productId
-    );
-    await connection.end();
+    const con = await connectDB();
+    await con.query("update gameData set status=false where id=?", productId);
+    await con.end();
     res.send("SUCCESS");
   } else {
     res.send("WRONG PIN");

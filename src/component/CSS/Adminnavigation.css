@@ -1,0 +1,79 @@
+.header-admin {
+  background-color: #212121;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  height: 120px;
+  position: relative;
+  gap: 40px;
+}
+
+.navImg-admin {
+  height: 120px;
+}
+
+.div-mode {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ปุ่มเมนู */
+.menu-btn {
+  cursor: pointer;
+  font-size: 40px;
+  color: white;
+}
+
+.menu-icon {
+  user-select: none;
+}
+
+/* Sidebar */
+.sidebar-admin {
+  position: fixed;
+  top: 0;
+  left: -250px; /* ซ่อนไว้ก่อน */
+  width: 250px;
+  height: 100%;
+  background-color: #2c2c2c;
+  color: white;
+  padding: 20px;
+  transition: left 0.3s ease;
+  z-index: 9999;
+}
+
+.sidebar-admin.open {
+  left: 0; /* เปิดออกมา */
+}
+
+.sidebar-admin ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 60px;
+}
+
+.sidebar-admin li {
+  margin: 15px 0;
+}
+
+.sidebar-admin a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.sidebar-admin a:hover {
+  color: #ff4f5e;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 900;
+}

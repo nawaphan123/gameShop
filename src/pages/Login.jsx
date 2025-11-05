@@ -1,5 +1,5 @@
 import React from "react";
-import "./Login.css";
+import "./CSS/Login.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -25,12 +25,14 @@ export const Login = () => {
   function checkLogin() {
     account.map((user) => {
       if (user.email == inputText.email && user.pass == inputText.pass) {
-        navigate("/main");
+        localStorage.setItem("logInState", "true");
+        navigate("/manageItem");
+        console.log(localStorage.getItem("logInState"));
       }
     });
   }
   return (
-    <>
+    <div className="bg-login">
       <div className="container">
         <h1>เข้าสู่ระบบ</h1>
         <form action="">
@@ -72,10 +74,10 @@ export const Login = () => {
           </div>
         </form>
 
-        <button className="btn btn-primary" onClick={checkLogin}>
+        <button className="btn btn-danger" onClick={checkLogin}>
           เข้าสู่ระบบ
         </button>
       </div>
-    </>
+    </div>
   );
 };

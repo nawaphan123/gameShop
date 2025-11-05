@@ -1,5 +1,5 @@
 import React from "react";
-import "./gameIdCard.css";
+import "./CSS/gameIdCard.css";
 import { Navigate, useNavigate } from "react-router-dom";
 
 export const IdCard = (props) => {

@@ -1,4 +1,4 @@
-import "./manageItem.css";
+import "./CSS/manageItem.css";
 import axios from "axios";
 import { EditIdModal } from "../component/gameIdModal";
 import { useEffect, useState } from "react";

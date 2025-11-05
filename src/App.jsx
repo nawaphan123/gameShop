@@ -2,14 +2,16 @@ import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Page2 from "./pages/mainPage";
 import { ProductPage } from "./pages/productPage";
-import { Root } from "./pages/Root";
+import { UserNav } from "./pages/UserNav";
 import { Login } from "./pages/Login";
 import { TestRESTAPI } from "./pages/testRESTAPI";
 import { ManageItem } from "./pages/manageItem";
+import { ProtectedBypass } from "./component/ProtectedBypass";
+import { AdminNav } from "./pages/AdminNav";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <UserNav />,
     children: [
       {
         path: "",
@@ -19,17 +21,28 @@ const router = createBrowserRouter([
         path: "products/:productId",
         element: <ProductPage />,
       },
-      {
-        path: "manageItem",
-        element: <ManageItem />,
-      },
-      {
-        path: "login",
-        element: <Login />,
-      },
+
       {
         path: "test",
         element: <TestRESTAPI />,
+      },
+    ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/manageItem",
+    element: <AdminNav />,
+    children: [
+      {
+        path: "",
+        element: (
+          <ProtectedBypass>
+            <ManageItem />
+          </ProtectedBypass>
+        ),
       },
     ],
   },
@@ -37,7 +50,6 @@ const router = createBrowserRouter([
 
 function App() {
   return <RouterProvider router={router} />;
-  // return <Login />;
 }
 
 export default App;

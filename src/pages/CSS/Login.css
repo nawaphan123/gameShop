@@ -1,5 +1,5 @@
 .container {
-  margin-top: 10%;
+  /* margin-top: 10%; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,11 +9,15 @@
   width: 400px;
   gap: 10px;
 
-  box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 10px;
+  box-shadow: rgba(253, 16, 16, 0.5) 0px 0px 20px;
   border-radius: 10px;
-  background-color: #fff;
+  background-color: #ffffff;
 }
-
+.bg-login {
+  padding: 10%;
+  height: 100vh;
+  background-color: #212121;
+}
 .inputfield {
   display: flex;
   flex-direction: column;

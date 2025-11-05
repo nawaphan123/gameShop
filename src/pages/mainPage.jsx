@@ -1,6 +1,5 @@
 import { IdCard } from "../component/gameIdCard";
-// import game from "../data/rovId.json";
-import "./mainPage.css";
+import "./CSS/mainPage.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 export default function GAME() {

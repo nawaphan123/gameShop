@@ -11,6 +11,11 @@
   border-style: solid;
   border-color: #ff4f5e;
 }
+
+.navImg {
+  height: 10vh;
+}
+
 .nav-container {
   display: flex;
   width: 100%;
@@ -20,11 +25,6 @@
   align-items: center;
   /* background-color: aliceblue; */
   height: fit-content;
-}
-.h1 {
-  padding: 0px;
-  color: #ffffff;
-  font-weight: 700;
 }
 
 .list {

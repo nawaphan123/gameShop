@@ -1,49 +1,140 @@
 import express from "express";
 import mysql from "mysql2/promise";
-import bodyParser from "body-parser";
 import fs from "fs";
+import cors from "cors";
+
 const app = express();
 const port = 3000;
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  next();
-});
-
-app.get("/rov", (req, res) => {
-  fs.readFile("./data/rovId.json", "utf-8", (err, data) => {
-    if (err) {
-      console.log("Error", err);
-    } else {
-      res.json(JSON.parse(data));
-      console.log("successfully");
-    }
+function connectDB() {
+  return mysql.createConnection({
+    host: "100.105.255.77",
+    user: "nodeuser",
+    password: "admin1122",
+    database: "gameshop",
+    charset: "utf8mb4",
   });
+}
+
+app.delete("/deleteItem", async (req, res) => {
+  const { id } = req.body;
+  const con = await connectDB();
+
+  const [result] = await con.query("delete from gameData where id=?", [id]);
+  console.log(id);
+  res.send("DELETE SUCCESS");
+  await con.end();
 });
 
+// อ่านไฟล์ rovId.json
+app.get("/id", async (req, res) => {
+  const [result] = await connection.query(
+    `SELECT * FROM gameData where id = ?`,
+    [req.query.id]
+  );
+  await connection.end();
+  res.json(result);
+});
+
+// ดึงข้อมูลจาก DB
 app.get("/getDB", async (req, res) => {
   const connection = await mysql.createConnection({
     host: "100.105.255.77",
     user: "nodeuser",
     password: "admin1122",
     database: "gameshop",
+    charset: "utf8mb4",
   });
-  const [result] = await connection.query("select * from gameData");
-  console.log(result);
-  connection.end;
-  await res.json(result);
+
+  const [result] = await connection.query("SELECT * FROM gameData");
+  await connection.end();
+  res.json(result);
 });
 
-app.post("/checkCode", (req, res) => {
-  if (req.body.moneyPin == "1234") {
+// insert ข้อมูลจาก rovId.json เข้าฐานข้อมูล
+app.get("/insert", async (req, res) => {
+  const connection = await mysql.createConnection({
+    host: "100.105.255.77",
+    user: "nodeuser",
+    password: "admin1122",
+    database: "gameshop",
+    charset: "utf8mb4",
+  });
+  await connection.query("SET NAMES utf8mb4");
+
+  fs.readFile("./data/rovId.json", "utf-8", async (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send("File read error");
+    }
+
+    const jsonData = JSON.parse(data);
+    for (const [idx, item] of jsonData.entries()) {
+      await connection.query(
+        `INSERT INTO gameData (image, info, price, status) VALUES (?, ?, ?, ?)`,
+        [item.image, item.info, item.price, item.status]
+      );
+      console.log("insert:", idx);
+    }
+
+    await connection.end();
+    res.send("Data inserted successfully");
+  });
+});
+
+app.patch("/updateItem", async (req, res) => {
+  const con = await connectDB();
+  const { image, info, price, status, id } = req.body;
+  const [result] = await con.query(
+    `UPDATE gameData SET gameData.image = ?,gameData.info = ?,gameData.price = ? ,gameData.status = ? WHERE id = "?" `,
+    [image, info, price, status, id]
+  );
+  res.send("success");
+  console.log(`update ID ${id} Success`);
+  await con.end();
+});
+app.post("/addItem", async (req, res) => {
+  const con = await connectDB();
+  const { image, info, price, status } = req.body;
+  const [result] = await con.query(
+    `INSERT INTO gameData(gameData.image,gameData.info,gameData.price,gameData.status) VALUES( ?, ?, ? ,?)`,
+    [image, info, price, status]
+  );
+  res.send("success");
+  console.log(`INSERT DATA Success`);
+  await con.end();
+});
+
+// ตรวจ PIN
+app.post("/checkCode", async (req, res) => {
+  const { moneyPin } = req.body;
+  const { productId } = req.body;
+  if (!moneyPin) return res.send("Missing moneyPin");
+  if (moneyPin === "1234") {
     console.log("success");
+    const connection = await mysql.createConnection({
+      host: "100.105.255.77",
+      user: "nodeuser",
+      password: "admin1122",
+      database: "gameshop",
+    });
+    await connection.query(
+      "update gameData set status=false where id=?",
+      productId
+    );
+    await connection.end();
     res.send("SUCCESS");
   } else {
     res.send("WRONG PIN");
   }
-  console.log(req.body.moneyPin);
 });
-
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`Server listening on port ${port}`));

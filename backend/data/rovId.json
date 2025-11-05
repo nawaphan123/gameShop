@@ -2,113 +2,113 @@
     {
         "id": "001",
         "image": "https://gameidshop.com/infometion/code-id-game/idrov/r-580.webp",
-        "info": "HERO 123 / SKIN 653 / ฮีโร่เยอะ สกินแรร์เพียบ รูนหลักครบ",
-        "price": "500.00",
+        "info": "HERO 123 / SKIN 653 / ฮีโร่เยอะ สกินแรร์เพียบ รูนหลักครบ ",
+        "price": "500",
         "status": true
     },
     {
         "id": "002",
         "image": "https://gameidshop.com/infometion/code-id-game/idrov/r-579.webp",
         "info": "HERO 122 / SKIN 380 / รูน 13 หน้า สกินแรร์ แรงค์ Conqueror",
-        "price": "300.00",
+        "price": "300",
         "status": true
     },
     {
         "id": "003",
         "image": "https://gameidshop.com/infometion/code-id-game/idrov/r-555.webp",
         "info": "HERO 120 SKIN 762 รูน 30 หน้า สกินแรร์เทพๆ",
-        "price": "1,000.00",
+        "price": "1000",
         "status": true
     },
     {
         "id": "004",
         "image": "https://gameidshop.com/infometion/code-id-game/idrov/r-549.webp",
         "info": "HERO 120 SKIN 666 รูน 30 หน้า สกินแรร์เต็มไอดี อีกเพียบ",
-        "price": "1,000.00",
+        "price": "1000",
         "status": true
     },
     {
         "id": "005",
         "image": "https://gameidshop.com/infometion/code-id-game/idrov/r-547.webp",
         "info": "HERO 120 สกิน SKIN 520 รูน 25 หน้า พร้อมแรงค์สุดเทพ สกินแรร์เนสสึโกะ",
-        "price": "1,000.00",
+        "price": "1000",
         "status": true
     },
     {
         "id": "006",
         "image": "https://gameidshop.com/infometion/code-id-game/idrov/r-546.webp",
         "info": "HERO 120 SKIN 594 รูน 21 หน้า สกินแรร์เพียบบบ",
-        "price": "1,000.00",
+        "price": "1000",
         "status": true
     },
     {
         "id": "007",
         "image": "https://gameidshop.com/infometion/code-id-game/idrov/r-576-sell.webp",
         "info": "HERO 122 SKIN 471 รูนเยอะมาก สกินแรร์เพียบบบ",
-        "price": "800.00",
+        "price": "800",
         "status": false
     },
     {
         "id": "008",
         "image": "https://gameidshop.com/infometion/code-id-game/idrov/r-575.webp",
         "info": "HERO 122 / SKIN 287 / รูน 28 หน้า แรงค์สุง สกินแรร์นาครอสเมะ",
-        "price": "300.00",
+        "price": "300",
         "status": true
     },
     {
         "id": "009",
         "image": "https://gameidshop.com/infometion/code-id-game/idrov/r-573.webp",
         "info": "HERO 119 SKIN 338 รูน 29 หน้า สกินแรร์คิริโตะ",
-        "price": "300.00",
+        "price": "300",
         "status": true
     },
     {
         "id": "010",
         "image": "https://gameidshop.com/infometion/code-id-game/idrov/r-565.webp",
         "info": "HERO 121 SKIN 354 รูน 30 หน้า สกินแรร์พี่เอกและเซเลอร์มูน",
-        "price": "300.00",
+        "price": "300",
         "status": true
     },
     {
         "id": "011",
         "image": "https://gameidshop.com/infometion/code-id-game/idrov/r-564.webp",
         "info": "HERO 120 SKIN 315 รูนเยอะ สกินแรร์เดมอนสเลเยอร์",
-        "price": "300.00",
+        "price": "300",
         "status": true
     },
     {
         "id": "012",
         "image": "https://gameidshop.com/infometion/code-id-game/idrov/r-563.webp",
         "info": "HERO 121 SKIN 393 รูน 30 หน้า สกินแรร์มูราด",
-        "price": "300.00",
+        "price": "300",
         "status": true
     },
     {
         "id": "013",
         "image": "https://gameidshop.com/infometion/code-id-game/idrov/r-562.webp",
         "info": "HERO 103 SKIN 226 รูน 10 หน้า สกินแรร์มูราด",
-        "price": "300.00",
+        "price": "300",
         "status": false
     },
     {
         "id": "014",
         "image": "https://gameidshop.com/infometion/code-id-game/idrov/r-561.webp",
         "info": "HERO 116 SKIN 281 รูน 16 หน้า สกินแรร์ยูจิ",
-        "price": "300.00",
+        "price": "300",
         "status": false
     },
     {
         "id": "015",
         "image": "https://gameidshop.com/infometion/code-id-game/idrov/r-569.webp",
         "info": "HERO 121 SKIN 550 รูน 17 หน้า สกินแรร์โกโจ",
-        "price": "500.00",
+        "price": "500",
         "status": true
     },
     {
         "id": "016",
         "image": "https://gameidshop.com/infometion/code-id-game/idrov/r-560.webp",
         "info": "HERO 121 SKIN 414 รูน 30 หน้า สกินแรร์คิริโตะอาสึนะ",
-        "price": "500.00",
+        "price": "500",
         "status": true
     }
 ]

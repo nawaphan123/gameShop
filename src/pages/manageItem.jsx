@@ -1,7 +1,26 @@
 import "./manageItem.css";
-import rovId from "../data/rovId.json";
+import axios from "axios";
 import { EditIdModal } from "../component/gameIdModal";
+import { useEffect, useState } from "react";
 export function ManageItem() {
+  const [data, Setdata] = useState([]);
+
+  async function callDataApi() {
+    const res = await axios.get("http://localhost:3000/getDB");
+    Setdata(res.data);
+  }
+  useEffect(() => {
+    callDataApi();
+  }, []);
+
+  async function deleteItem(id) {
+    console.log(id);
+    const res = await axios.delete("http://localhost:3000/deleteItem", {
+      data: { id },
+    });
+    callDataApi();
+  }
+
   return (
     <>
       <div className="mt-3 text-center display-1 fw-bold">MANAGE STOCK</div>
@@ -10,6 +29,12 @@ export function ManageItem() {
           classButton={"btn btn-success btn-lg my-3"}
           text={"ADD"}
           type={"ADD"}
+          id={"ADD"}
+          image={""}
+          info={""}
+          price={0}
+          status={false}
+          onsave={callDataApi}
         />
         <table className="table table-striped">
           <thead className="text-center table-dark sticky-top">
@@ -23,7 +48,7 @@ export function ManageItem() {
             </tr>
           </thead>
           <tbody className="table-item-tbody">
-            {rovId.map((item, idx) => {
+            {data.map((item, idx) => {
               return (
                 <tr key={idx}>
                   <td className="text-center align-middle fs-1 fw-bold">
@@ -51,10 +76,19 @@ export function ManageItem() {
                         classButton={"btn btn-warning mx-1 fs-4"}
                         text={"EDIT"}
                         type={"EDIT"}
+                        id={item.id}
+                        image={item.image}
+                        info={item.info}
+                        price={item.price}
+                        status={item.status}
+                        onsave={callDataApi}
                       />
                       <button
                         type="button"
                         className="btn btn-danger mx-1 fs-4"
+                        onClick={() => {
+                          deleteItem(item.id);
+                        }}
                       >
                         DELETE
                       </button>
@@ -69,6 +103,12 @@ export function ManageItem() {
           classButton={"btn btn-success btn-lg my-3"}
           text={"ADD"}
           type={"ADD"}
+          id={"ADD"}
+          image={""}
+          info={""}
+          price={0}
+          status={false}
+          onsave={callDataApi}
         />
       </div>
     </>

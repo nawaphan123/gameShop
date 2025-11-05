@@ -4,23 +4,27 @@ import "./productPage.css";
 import { useState } from "react";
 import axios from "axios";
 
-export const ProductPage = () => {
+export const ProductPage = (props) => {
+  const { productId } = useParams();
   const navigate = useNavigate();
   const [data, Setdata] = useState([]);
   const [moneyPin, SetmoneyPin] = useState("");
+
   useEffect(() => {
     async function callDataApi() {
-      const res = await axios.get("http://localhost:3000/rov");
-      Setdata(res.data);
+      const res = await axios.get(`http://localhost:3000/id?id=${productId}`);
+      Setdata(res.data[0]);
     }
     callDataApi();
-  }, []);
+  }, [productId]);
 
   async function checkMoneyPin(e) {
     e.preventDefault();
+
     try {
       const res = await axios.post("http://localhost:3000/checkCode", {
         moneyPin,
+        productId,
       });
       if (res.data == "SUCCESS") {
         alert("Success! Your ID will be sent to your email within 1 minute.");
@@ -30,10 +34,9 @@ export const ProductPage = () => {
       alert(err);
     }
   }
-
-  const { productId } = useParams();
-  const datagame = data.find((f) => f.id == productId);
-  if (!datagame) return <p>Loading...</p>;
+  if (!data) {
+    return <h1>loading...</h1>;
+  }
   return (
     <>
       <div className="main-containner2">
@@ -41,15 +44,15 @@ export const ProductPage = () => {
           <div className="row g-0">
             <div className="col-md-4">
               <img
-                src={datagame.image}
+                src={data.image}
                 className="img-fluid rounded-start"
                 alt="..."
               />
             </div>
             <div className="col-md-8">
               <div className="card-body">
-                <h1 className="card-text">ID #{datagame.id}</h1>
-                <h2 className="card-text">{datagame.info}</h2>
+                <h1 className="card-text">ID #{data.id}</h1>
+                <h2 className="card-text">{data.info}</h2>
                 <form action="" className="my-3" onSubmit={checkMoneyPin}>
                   <label htmlFor="trueMoneyCode">
                     <h5>ชำระด้วยบัตรเงินสด TRUE MONEY 14 หลัก</h5>
@@ -81,7 +84,7 @@ export const ProductPage = () => {
             </div>
           </div>
         </div>
-        <h1>คลิปส่อง ID #{datagame.id}</h1>
+        <h1>คลิปส่อง ID #{data.id}</h1>
         <div className="iframe-container">
           <iframe
             src="https://www.youtube.com/embed/eEquAh9CD2Q"

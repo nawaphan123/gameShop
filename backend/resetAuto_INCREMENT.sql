@@ -1,0 +1,3 @@
+TRUNCATE TABLE gameData;
+ALTER table gameData AUTO_INCREMENT = 1;
+SELECT * FROM gameData;

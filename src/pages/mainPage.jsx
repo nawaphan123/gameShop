@@ -7,7 +7,7 @@ export default function GAME() {
   const [game, Setdata] = useState([]);
   useEffect(() => {
     async function callDataApi() {
-      const res = await axios.get("http://localhost:3000/rov");
+      const res = await axios.get("http://localhost:3000/getDB");
       Setdata(res.data);
     }
     callDataApi();

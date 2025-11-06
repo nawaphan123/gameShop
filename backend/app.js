@@ -2,7 +2,9 @@ import express from "express";
 import mysql from "mysql2/promise";
 import fs from "fs";
 import cors from "cors";
+import dotenv from "dotenv";
 
+dotenv.config();
 const app = express();
 const port = 3000;
 app.use(express.json());
@@ -17,11 +19,11 @@ app.use(
 
 function connectDB() {
   return mysql.createConnection({
-    host: "100.105.255.77",
-    user: "nodeuser",
-    password: "admin1122",
-    database: "gameshop",
-    charset: "utf8mb4",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    charset: process.env.DB_CHARSET,
   });
 }
 

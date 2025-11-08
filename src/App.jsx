@@ -4,7 +4,6 @@ import Page2 from "./pages/mainPage";
 import { ProductPage } from "./pages/productPage";
 import { UserNav } from "./pages/UserNav";
 import { Login } from "./pages/Login";
-import { TestRESTAPI } from "./pages/testRESTAPI";
 import { ManageItem } from "./pages/manageItem";
 import { ProtectedBypass } from "./component/ProtectedBypass";
 import { AdminNav } from "./pages/AdminNav";
@@ -20,11 +19,6 @@ const router = createBrowserRouter([
       {
         path: "products/:productId",
         element: <ProductPage />,
-      },
-
-      {
-        path: "test",
-        element: <TestRESTAPI />,
       },
     ],
   },

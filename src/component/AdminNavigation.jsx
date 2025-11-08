@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./CSS/Adminnavigation.css";
+import axios from "axios";
 
 export const AdminNavigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  async function logout() {
+    await axios.get("http://localhost:3000/logOut", { withCredentials: true });
+    console.log("LOGOUT");
+  }
 
   return (
     <>
@@ -37,12 +43,7 @@ export const AdminNavigation = () => {
             </NavLink>
           </li>
           <li className="" style={{ marginTop: "50px" }}>
-            <NavLink
-              onClick={() => {
-                localStorage.removeItem("logInState");
-              }}
-              to="/"
-            >
+            <NavLink onClick={logout} to="/">
               <h4 className="bi bi-box-arrow-left"> Logout</h4>
             </NavLink>
           </li>

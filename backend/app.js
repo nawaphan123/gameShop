@@ -186,5 +186,14 @@ app.get("/checkPermission", (req, res) => {
     res.json({ status: false });
   }
 });
+app.get("/logOut", async (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: false,
+  });
+  console.log("logout");
+  res.json({ status: false });
+});
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));

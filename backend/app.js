@@ -3,17 +3,23 @@ import mysql from "mysql2/promise";
 import fs from "fs";
 import cors from "cors";
 import dotenv from "dotenv";
+import jwt from "jsonwebtoken";
+import cookieParser from "cookie-parser";
+import bcrypt from "bcrypt";
 
 dotenv.config();
 const app = express();
 const port = 3000;
+const secretJWT = process.env.SECRETJWT;
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "*",
+    origin: "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
   })
 );
 
@@ -97,11 +103,10 @@ app.post("/addItem", async (req, res) => {
     `INSERT INTO gameData(gameData.image,gameData.info,gameData.price,gameData.status) VALUES( ?, ?, ? ,?)`,
     [image, info, price, status]
   );
-  res.send("success");
+  res.json("success");
   console.log(`INSERT DATA Success`);
   await con.end();
 });
-
 // ตรวจ PIN
 app.post("/checkCode", async (req, res) => {
   const { moneyPin } = req.body;
@@ -117,4 +122,69 @@ app.post("/checkCode", async (req, res) => {
     res.send("WRONG PIN");
   }
 });
+
+app.post("/register", async (req, res) => {
+  try {
+    const con = await connectDB();
+    const { username, password } = req.body;
+    const passwordHash = await bcrypt.hash(password, 10);
+    const [result] = await con.query(
+      "INSERT INTO userData(username,password) VALUES(?,?)",
+      [username, passwordHash]
+    );
+    res.json({ messege: result });
+    await con.end();
+  } catch (err) {
+    console.log(err);
+    res.send("register fail");
+  }
+});
+
+app.post("/login", async (req, res) => {
+  const con = await connectDB();
+  const { username, password } = req.body;
+  const [result] = await con.query(
+    "SELECT * FROM userData WHERE username = ?",
+    [username]
+  );
+  const userData = result[0];
+  try {
+    const match = await bcrypt.compare(password, userData.password);
+    if (!match) {
+      res.send("fail");
+      return false;
+    }
+    const token = jwt.sign({ username, role: "admin" }, secretJWT, {
+      expiresIn: "1h",
+    });
+    res.cookie("token", token, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: false,
+      maxAge: 60 * 60 * 1000, // หมดอายุใน 1 นาที
+    });
+
+    res.json({ messege: "login Success", status: true });
+  } catch (err) {
+    res.json({
+      messege: "wrong email or password!!",
+      error: err,
+    });
+  }
+});
+app.get("/checkPermission", (req, res) => {
+  console.log(req.cookies.token);
+  try {
+    const match = jwt.verify(req.cookies.token, secretJWT);
+    if (match) {
+      res.json({ status: true });
+    } else {
+      res.json({ status: false });
+    }
+  } catch (err) {
+    console.log("wrong jwt");
+    res.json({ status: false });
+  }
+});
+
 app.listen(port, () => console.log(`Server listening on port ${port}`));

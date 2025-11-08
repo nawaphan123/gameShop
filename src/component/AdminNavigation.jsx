@@ -43,7 +43,7 @@ export const AdminNavigation = () => {
               }}
               to="/"
             >
-              <h4 class="bi bi-box-arrow-left"> Logout</h4>
+              <h4 className="bi bi-box-arrow-left"> Logout</h4>
             </NavLink>
           </li>
         </ul>

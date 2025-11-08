@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "axios": "^1.13.1",
+    "bcrypt": "^6.0.0",
     "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
+    "cookies-parser": "^1.2.0",
     "dotenv": "^17.2.3",
+    "jsonwebtoken": "^9.0.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.4"

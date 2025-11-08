@@ -1,35 +1,27 @@
 import React from "react";
 import "./CSS/Login.css";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { data, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const Login = () => {
   const [inputText, setInputText] = useState([{ email: "", pass: "" }]);
   const [showPassword, setShowPassword] = useState(true);
-  const [account, setAcount] = useState([
-    {
-      email: "admin@gmail.com",
-      pass: "admin",
-    },
-    {
-      email: "user@gmail.com",
-      pass: "user",
-    },
-    {
-      email: "1",
-      pass: "1",
-    },
-  ]);
   const navigate = useNavigate();
 
-  function checkLogin() {
-    account.map((user) => {
-      if (user.email == inputText.email && user.pass == inputText.pass) {
-        localStorage.setItem("logInState", "true");
-        navigate("/manageItem");
-        console.log(localStorage.getItem("logInState"));
-      }
-    });
+  async function checkLogin() {
+    const res = await axios.post(
+      "http://localhost:3000/login",
+      {
+        username: inputText.email,
+        password: inputText.pass,
+      },
+      { withCredentials: true }
+    );
+    if (res.data.status) {
+      navigate("/manageItem");
+    }
+    console.log();
   }
   return (
     <div className="bg-login">
